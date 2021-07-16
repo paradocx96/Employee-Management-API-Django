@@ -5,26 +5,29 @@ from rest_framework.decorators import api_view
 
 
 @api_view(['GET'])
-def employeeList(request):
+def employee_list(request):
     employees = Employee.objects.all()
     serializer = EmployeeSerializer(employees, many=True)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
-def employeeById(request, pk):
+def employee_by_id(request, pk):
     employee = Employee.objects.get(id=pk)
     serializer = EmployeeSerializer(employee, many=False)
     return Response(serializer.data)
 
+
 @api_view(['POST'])
-def employeeCreate(request):
+def employee_create(request):
     serializer = EmployeeSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
 
+
 @api_view(['POST'])
-def employeeUpdate(request, pk):
+def employee_update(request, pk):
     employee = Employee.objects.get(id=pk)
     serializer = EmployeeSerializer(instance=employee, data=request.data)
     if serializer.is_valid():
@@ -33,7 +36,8 @@ def employeeUpdate(request, pk):
 
 
 @api_view(['DELETE'])
-def employeeDelete(request, pk):
+def employee_delete(request, pk):
     employee = Employee.objects.get(id=pk)
     employee.delete()
     return Response('Deleted!')
+
